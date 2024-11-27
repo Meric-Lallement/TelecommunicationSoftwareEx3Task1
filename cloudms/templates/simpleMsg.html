@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Messages Board (1) Home Page</title>
+</head>
+<body>
+    <h1>Submit Messages Ribbon</h1>
+    <form action="/submit/" method="post">
+        {% csrf_token %}
+        Sender: <input type="text" name="user1" /> <br>
+        Receiver: <input type="text" name="user2" /> <br>
+        Message: <input type="text" name="msg" /> <br>
+        <input type="submit" value="Message submission" />
+    </form>
+    <br>
+
+    <h1>Get Messages Ribbon</h1>
+    <form action="/inquiry/" method="get">
+        Receiver: <input type="text" name="user2" /> <br>
+        <input type="submit" value="Get a message" />
+    </form>
+    <br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Message Time</th>
+                <th>Message Source</th>
+                <th>Message Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in data %}
+            <tr>
+                <td style="text-align:center;">{{ line.time }}</td>
+                <td style="text-align:center;">{{ line.user1 }}</td>
+                <td>{{ line.msg }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
